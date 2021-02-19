@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import mergeClassNames from 'merge-class-names';
 import {
   getYear,
   getMonth,
@@ -8,7 +9,7 @@ import {
 
 import Flex from '../Flex';
 
-import { getDayOfWeek } from '../shared/dates';
+import { getDayOfWeek, isWeekend } from '../shared/dates';
 import { formatWeekday, formatShortWeekday as defaultFormatShortWeekday } from '../shared/dateFormatter';
 import { isCalendarType } from '../shared/propTypes';
 
@@ -39,7 +40,7 @@ export default function Weekdays(props) {
     weekdays.push(
       <div
         key={weekday}
-        className={`${className}__weekday`}
+        className={mergeClassNames(`${className}__weekday`, isWeekend(weekdayDate) && '--weekend')}
       >
         <abbr aria-label={abbr} title={abbr}>
           {formatShortWeekday(locale, weekdayDate).replace('.', '')}
